@@ -17,7 +17,7 @@ func main()  {
 	l := log.NewLog("Log", "")
 	defer l.Close()
 
-	cs := env.Get().ConnectionString()
+	cs := "host=postgresserverpilkada.postgres.database.azure.com port=5432 dbname=pantaupilkadadb user=pantauadminpilkada password=4CcountP1lkAda"
 	db, err := gorm.Open(postgres.Open(cs), &gorm.Config{})
 
 	if err != nil{

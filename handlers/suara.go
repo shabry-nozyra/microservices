@@ -12,19 +12,8 @@ import (
 
 //getAll
 func (ctx *Context) getAllSuara(c *gin.Context) {
-	id, _ := strconv.Atoi(c.Param("id"))
-	p := models.TPS{}
-	err := p.GetTPS(ctx.Client, id)
-	if err != nil{
-		ctx.Log.Error(err.Error())
-		errorm := "Gagal Menjalankan Query"
-		c.JSON(http.StatusInternalServerError, errorm)
-		return
-	}
-
 	m := models.Suaras{}
-	err = m.All(ctx.DB, id)
-
+	err := m.All(ctx.DB)
 	if err != nil{
 		ctx.Log.Error(err.Error())
 		errorm := "Gagal Menjalankan Query"
@@ -43,8 +32,8 @@ func (ctx *Context) getSuara(c *gin.Context) {
 
 	if err != nil{
 		ctx.Log.Error(err.Error())
-		errorm := "Gagal Menjalankan Query"
-		c.JSON(http.StatusInternalServerError, errorm)
+		//errorm := "Gagal Menjalankan Query"
+		c.JSON(http.StatusInternalServerError, err)
 		return
 	}
 	c.JSON(http.StatusOK, p)

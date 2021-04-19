@@ -2,30 +2,29 @@ package models
 
 import (
 	"fmt"
-	jsoniter "github.com/json-iterator/go"
 	"github.com/go-resty/resty/v2"
+	jsoniter "github.com/json-iterator/go"
 	"net/http"
 )
 type (
 	TPS struct {
-		ID uint `json:"id"`
-		NoTPS uint8 `json:"no_tps"`
+		ID int64 `json:"id"`
+		NoTPS int64 `json:"no_tps"`
 		Lokasi string `json:"lokasi"`
 		Kecamatan string `json:"kecamatan"`
 		Nagari string `json:"nagari"`
 		Jorong string `json:"jorong"`
-		JPL uint8 `json:"jpl"`
-		IsActive uint8 `json:"is_active"`
+		JPL int64 `json:"jpl"`
+		IsActive int64 `json:"is_active"`
 	}
 )
 
 func (p *TPS) GetTPS(client *resty.Client, ID int) error {
-	const URL =  "http://localhost:8080/tps/id"
-	res, err := client.R().Get(fmt.Sprintf(URL, ID))
+	const URL =  "http://localhost:8080/tps/%d"
+	res, err := client.R().Get(fmt.Sprintf(URL, 75))
 	if err != nil{
 		return err
 	}
-
 	if res.StatusCode() != http.StatusOK{
 		return fmt.Errorf(res.Status())
 	}
@@ -33,7 +32,5 @@ func (p *TPS) GetTPS(client *resty.Client, ID int) error {
 	if err != nil{
 		return err
 	}
-
 	return nil
-
 }
