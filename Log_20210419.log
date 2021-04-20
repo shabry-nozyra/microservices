@@ -22,3 +22,8 @@ time="2021-04-19T07:59:32+07:00" level=info msg="start listen and serve at 0.0.0
 time="2021-04-19T08:00:47+07:00" level=info msg="start listen and serve at 0.0.0.0:8081"
 time="2021-04-19T08:02:30+07:00" level=info msg="start listen and serve at 0.0.0.0:8081"
 time="2021-04-19T08:04:47+07:00" level=info msg="start listen and serve at 0.0.0.0:8081"
+time="2021-04-19T08:08:02+07:00" level=info msg="start listen and serve at 0.0.0.0:8081"
+time="2021-04-19T11:54:42+07:00" level=info msg="start listen and serve at 0.0.0.0:8081"
+time="2021-04-19T11:55:26+07:00" level=error msg="500 Internal Server Error"
+time="2021-04-19T11:56:50+07:00" level=info msg="start listen and serve at 0.0.0.0:8081"
+time="2021-04-19T12:01:10+07:00" level=info msg="start listen and serve at 0.0.0.0:8081"

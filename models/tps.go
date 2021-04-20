@@ -20,8 +20,8 @@ type (
 )
 
 func (p *TPS) GetTPS(client *resty.Client, ID int) error {
-	const URL =  "http://localhost:8080/tps/%d"
-	res, err := client.R().Get(fmt.Sprintf(URL, 75))
+	const URL =  "https://pantauapp.azurewebsites.net/tps/%d"
+	res, err := client.R().Get(fmt.Sprintf(URL, ID))
 	if err != nil{
 		return err
 	}

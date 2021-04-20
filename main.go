@@ -11,13 +11,14 @@ import (
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"net/http"
+	"os"
 )
 
 func main()  {
 	l := log.NewLog("Log", "")
 	defer l.Close()
 
-	cs := "host=postgresserverpilkada.postgres.database.azure.com port=5432 dbname=pantaupilkadadb user=pantauadminpilkada password=4CcountP1lkAda"
+	cs := env.Get().ConnectionString()
 	db, err := gorm.Open(postgres.Open(cs), &gorm.Config{})
 
 	if err != nil{
@@ -34,7 +35,7 @@ func main()  {
 	}
 
 	client := resty.New()
-
+	gin.SetMode(gin.ReleaseMode)
 	g := gin.Default()
 
 	c := cors.DefaultConfig()
@@ -47,8 +48,10 @@ func main()  {
 	h := handlers.Context{Gin: g, DB: db, Log:l, Client: client}
 	h.Register("")
 
-	l.Infof("start listen and serve at %v", env.Get().AppHost)
-	s := &http.Server{Addr: env.Get().AppHost, Handler: g}
+	port := os.Getenv("AppPort")
+
+	l.Infof("start listen and serve at %v", port)
+	s := &http.Server{Addr: "0.0.0.0:" + port, Handler: g}
 	err = s.ListenAndServe()
 	if err != nil {
 		l.Fatal("failed to connect to serv")
