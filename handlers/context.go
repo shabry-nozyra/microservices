@@ -4,7 +4,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/shabry-nozyra/microservices/helpers/log"
 	"github.com/go-resty/resty/v2"
-	"github.com/shabry-nozyra/microservices/notifier"
 	"gorm.io/gorm"
 )
 
@@ -13,7 +12,6 @@ type Context struct {
 	Log *log.AppLog
 	Gin *gin.Engine
 	Client *resty.Client
-	NotifierClient *notifier.Notifier
 }
 
 
