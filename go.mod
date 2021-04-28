@@ -10,6 +10,7 @@ require (
 	github.com/go-resty/resty/v2 v2.5.0
 	github.com/google/uuid v1.2.0 // indirect
 	github.com/json-iterator/go v1.1.9
+	github.com/pusher/pusher-http-go v4.0.1+incompatible
 	github.com/sirupsen/logrus v1.8.0
 	github.com/spf13/viper v1.7.1
 	golang.org/x/net v0.0.0-20210405180319-a5a99cb37ef4 // indirect

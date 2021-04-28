@@ -3,16 +3,21 @@ package main
 import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	"github.com/go-resty/resty/v2"
 	"github.com/shabry-nozyra/microservices/handlers"
 	"github.com/shabry-nozyra/microservices/helpers/env"
 	"github.com/shabry-nozyra/microservices/helpers/log"
 	"github.com/shabry-nozyra/microservices/models"
-	"github.com/go-resty/resty/v2"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"net/http"
 	"os"
 )
+
+type Context struct {
+	DB  *gorm.DB
+	Gin *gin.Engine
+}
 
 func main()  {
 	l := log.NewLog("Log", "")

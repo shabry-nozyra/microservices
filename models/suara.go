@@ -4,6 +4,7 @@ import (
 	"gorm.io/gorm"
 )
 
+
 type (
 	Suara struct {
 		ID uint 				`json:"id" gorm:"column:id;primaryKey;autoIncrement"`
@@ -107,6 +108,7 @@ func (p *Suaras) AllByTPS(db *gorm.DB, Id_tps int) error {
 func (p *Suaras) All(db *gorm.DB) error {
 	return db.Model(Suara{}).Find(p).Error
 }
+
 
 
 

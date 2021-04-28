@@ -2,13 +2,27 @@ package handlers
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/pusher/pusher-http-go"
 	"github.com/shabry-nozyra/microservices/models"
+	"github.com/shabry-nozyra/microservices/helpers/log"
 	"gorm.io/gorm"
 	"math"
 	"net/http"
 	"strconv"
 	"strings"
 )
+
+var l = log.NewLog("Log", "")
+
+var client = pusher.Client{
+	AppID:   "1192937",
+	Key:     "d78a56b5e5e7ed44eeb4",
+	Secret:  "a137aa3643740f6b1945",
+	Cluster: "ap1",
+	Secure:  true,
+}
+
+
 
 
 
@@ -198,7 +212,35 @@ func (ctx *Context) createSuara(c *gin.Context) {
 	res := map[string]string{
 		"status": "Succesfully",
 	}
+
+	m := models.Suaras{}
+	count := float64(m.Count(ctx.DB))
+	suara1 := float64(m.Sum(ctx.DB))
+	suara2 := float64(m.Sum2(ctx.DB))
+	suara3 := float64(m.Sum3(ctx.DB))
+	totalSuara := float64(suara1 + suara2 + suara3)
+	totalTps := float64(m.TotalTps(ctx.DB))
+	persentaseSuaraMasuk := float64(math.Round(count*100/totalTps))
+	persenSuara1 := float64(math.Round(float64(suara1*100/totalSuara)))
+	persenSuara2 := float64(math.Round(float64(suara2*100/totalSuara)))
+	persenSuara3 := float64(math.Round(float64(suara3*100/totalSuara)))
+
+	result := map[string]float64{
+		"total_tps_masuk": count,
+		"total_suara_masuk": totalSuara,
+		"total_tps": totalTps,
+		"persentase_suara_masuk": persentaseSuaraMasuk,
+		"suara1": suara1,
+		"suara2": suara2,
+		"suara3": suara3,
+		"persensuara1": persenSuara1,
+		"persensuara2": persenSuara2,
+		"persensuara3": persenSuara3,
+	}
+
+	client.Trigger("results", "results", result)
 	c.JSON(http.StatusCreated, res)
+
 
 }
 

@@ -1,0 +1,5 @@
+time="2021-04-27T07:30:04+07:00" level=info msg="start listen and serve at 8081"
+time="2021-04-27T07:32:15+07:00" level=error msg="record not found"
+time="2021-04-27T07:34:27+07:00" level=error msg="ERROR: null value in column \"id\" of relation \"suara_tps\" violates not-null constraint (SQLSTATE 23502)"
+time="2021-04-27T07:44:12+07:00" level=info msg="start listen and serve at 8081"
+time="2021-04-27T08:32:50+07:00" level=info msg="start listen and serve at 8081"
