@@ -71,11 +71,53 @@ func (ctx *Context) getAllSuara(c *gin.Context) {
 	c.JSON(http.StatusOK, s)
 }
 
+func (ctx *Context) getKec(c *gin.Context) {
+	s := models.Kecs{}
+	err := s.GetKec(ctx.DB)
+
+	if err != nil{
+		ctx.Log.Error(err.Error())
+		errorm := "Gagal Menjalankan Query"
+		c.JSON(http.StatusInternalServerError, errorm)
+		return
+	}
+	c.JSON(http.StatusOK, s)
+}
+
+func (ctx *Context) getNagari(c *gin.Context) {
+	s := models.Nagaris{}
+	err := s.GetNagari(ctx.DB)
+
+	if err != nil{
+		ctx.Log.Error(err.Error())
+		errorm := "Gagal Menjalankan Query"
+		c.JSON(http.StatusInternalServerError, errorm)
+		return
+	}
+	c.JSON(http.StatusOK, s)
+}
+
+
 func (ctx *Context) getSuara(c *gin.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
 	p := models.Suara{}
 
 	err := p.Get(ctx.DB, id)
+
+	if err != nil{
+		ctx.Log.Error(err.Error())
+		//errorm := "Gagal Menjalankan Query"
+		c.JSON(http.StatusInternalServerError, err)
+		return
+	}
+	c.JSON(http.StatusOK, p)
+}
+
+func (ctx *Context) getByKec(c *gin.Context) {
+	Kec := c.Param("kec")
+	p := models.Suaras{}
+
+	err := p.GetByKec(ctx.DB, Kec)
 
 	if err != nil{
 		ctx.Log.Error(err.Error())

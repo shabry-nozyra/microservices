@@ -109,6 +109,34 @@ func (p *Suaras) All(db *gorm.DB) error {
 	return db.Model(Suara{}).Find(p).Error
 }
 
+func (p *Suaras) GetByKec(db *gorm.DB, Kec string) error {
+	return db.Table("suara_tps").Select("*").Joins("join tps on suara_tps.id_tps = tps.id").Where("tps.kecamatan = ?", Kec).Scan(&p).Error
+
+	//return db.Model(Suara{}).Where("id_tps = ?", Id_tps).Find(p).Error
+}
+
+
+type Kec struct {
+	Kecamatan  string `json:"kecamatan"`
+}
+
+type Kecs []Kec
+
+
+type Nagari struct {
+	Nagari string `json:"nagari"`
+}
+
+type Nagaris []Nagari
+
+func (k *Kecs) GetKec(db *gorm.DB) error {
+	return db.Table("tps").Distinct("kecamatan").Select("kecamatan").Find(k).Error	//return db.Model(Suara{}).Where("id_tps = ?", Id_tps).Find(p).Error
+}
+
+func (n *Nagaris) GetNagari(db *gorm.DB) error {
+	return db.Table("tps").Distinct("nagari").Select("nagari").Find(n).Error	//return db.Model(Suara{}).Where("id_tps = ?", Id_tps).Find(p).Error
+}
+
 
 
 
