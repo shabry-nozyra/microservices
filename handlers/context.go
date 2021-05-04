@@ -24,6 +24,7 @@ func (ctx *Context) Register(group string) {
 		public.GET("/suaratotal", ctx.getTotalTpsMasuk)
 		public.GET("/suara/:id", ctx.getSuara)
 		public.GET("/suaraByKec/:kec", ctx.getByKec)
+		public.GET("/detailkec/:kec", ctx.DetailKec)
 		public.GET("/NamaKec", ctx.getKec)
 		public.GET("/NamaNagari", ctx.getNagari)
 		public.POST("/suara/add", ctx.createSuara)

@@ -20,6 +20,9 @@ type (
 		Status int64			`json:"status" gorm:"column:status;"`
 		WaktuInput int64		`json:"waktu_input" gorm:"column:waktu_input;"`
 		DataKe int64 			`json:"data_ke" gorm:"column:data_ke;"`
+		Lokasi string 			`json:"lokasi"`
+		Nagari string			`json:"nagari"`
+		No_tps int64			`json:"no_tps"`
 	}
 )
 func (Suara) TableName() string{
@@ -113,6 +116,23 @@ func (p *Suaras) GetByKec(db *gorm.DB, Kec string) error {
 	return db.Table("suara_tps").Select("*").Joins("join tps on suara_tps.id_tps = tps.id").Where("tps.kecamatan = ?", Kec).Scan(&p).Error
 
 	//return db.Model(Suara{}).Where("id_tps = ?", Id_tps).Find(p).Error
+}
+
+
+func (p *Suaras) JumlahNagariByKec(db *gorm.DB, Kec string) int64 {
+	var nagari int64
+	db.Table("tps").Distinct("nagari").Where("tps.kecamatan = ?", Kec).Count(&nagari)
+	return nagari
+}
+func (p *Suaras) JumlahTPSByKec(db *gorm.DB, Kec string) int64 {
+	var tps int64
+	db.Table("tps").Distinct("id").Where("tps.kecamatan = ?", Kec).Count(&tps)
+	return tps
+}
+func  (p *Suaras) TotalJplByKec (db *gorm.DB, Kec string) int64 {
+	var JPL int64
+	db.Raw("Select sum(jpl) as jpl from tps").Where("tps.kecamatan = ?", Kec).Scan(&JPL)
+	return JPL
 }
 
 
