@@ -81,6 +81,7 @@ func (ctx *Context) getKec(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, errorm)
 		return
 	}
+
 	//kecamatan := float64(s.Count(ctx.DB))
 
 	c.JSON(http.StatusOK, s)
@@ -367,12 +368,12 @@ func (ctx *Context) DetailKec(c *gin.Context) {
 	p := models.Suaras{}
 	nagari := float64(p.JumlahNagariByKec(ctx.DB,Kec))
 	tps := float64(p.JumlahTPSByKec(ctx.DB,Kec))
-	jpl := float64(p.TotalJplByKec(ctx.DB, Kec))
+	jpt := float64(models.JumlahJPLByKec(ctx.DB,Kec))
 
 	res := map[string]float64{
 		"total_nagari": nagari,
 		"total_tps": tps,
-		"total_jpl": jpl,
+		"total_jpl": jpt,
 
 	}
 	c.JSON(http.StatusOK, res)

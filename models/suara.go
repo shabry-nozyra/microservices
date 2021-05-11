@@ -129,10 +129,10 @@ func (p *Suaras) JumlahTPSByKec(db *gorm.DB, Kec string) int64 {
 	db.Table("tps").Distinct("id").Where("tps.kecamatan = ?", Kec).Count(&tps)
 	return tps
 }
-func  (p *Suaras) TotalJplByKec (db *gorm.DB, Kec string) int64 {
-	var JPL int64
-	db.Raw("Select sum(jpl) as jpl from tps").Where("tps.kecamatan = ?", Kec).Scan(&JPL)
-	return JPL
+func JumlahJPLByKec(db *gorm.DB, Kec string) int64 {
+	var jpt int64
+	db.Table("tps").Select("sum(jpl)").Where("kecamatan = ?", Kec).Row().Scan(&jpt)
+	return jpt
 }
 
 
